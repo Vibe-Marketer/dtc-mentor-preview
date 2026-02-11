@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTC Mentor AI — Your AI-Powered Ecommerce Growth Partner</title>
+    <meta name="description" content="Get expert DTC ecommerce advice instantly. AI mentor trained on proven frameworks, real benchmarks, and tactical strategies for direct-to-consumer brands.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#" class="logo">
+                <span class="logo-icon">◆</span>
+                <span class="logo-text">DTC Mentor<span class="logo-ai">.ai</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#examples">Examples</a>
+                <button class="btn-nav" onclick="scrollToChat()">Start Free Session</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero + Chat -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-inner">
+            <div class="hero-left">
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    AI-Powered DTC Growth Partner
+                </div>
+                <h1>Scale your DTC brand with <span class="gradient-text">AI-powered mentorship</span></h1>
+                <p class="hero-sub">Get instant, tactical ecommerce advice backed by real data. From CAC optimization to retention strategies — your AI mentor knows what works.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-num">2,847+</span>
+                        <span class="stat-label">Strategies Delivered</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num">$14.2M</span>
+                        <span class="stat-label">Revenue Influenced</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num">312</span>
+                        <span class="stat-label">Brands Helped</span>
+                    </div>
+                </div>
+                <div class="hero-cta-mobile">
+                    <button class="btn-primary" onclick="scrollToChat()">Start Your Free Session →</button>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="chat-container" id="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-header-left">
+                            <div class="chat-avatar">
+                                <span>◆</span>
+                            </div>
+                            <div>
+                                <div class="chat-header-title">DTC Mentor AI</div>
+                                <div class="chat-header-status">
+                                    <span class="status-dot"></span>
+                                    Online — Ready to help
+                                </div>
+                            </div>
+                        </div>
+                        <button class="chat-reset" onclick="resetChat()" title="New conversation">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.65 2.35A8 8 0 1 0 16 8h-2a6 6 0 1 1-1.76-4.24L10 6h6V0l-2.35 2.35z" fill="currentColor"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Email Gate -->
+                    <div class="email-gate" id="email-gate">
+                        <div class="email-gate-inner">
+                            <div class="email-gate-icon">🚀</div>
+                            <h3>Start Your Free Session</h3>
+                            <p>Get instant, expert DTC advice. Enter your email to begin.</p>
+                            <form class="email-form" id="email-form" onsubmit="handleEmailSubmit(event)">
+                                <input type="email" id="email-input" placeholder="you@yourbrand.com" required autocomplete="email">
+                                <button type="submit" class="btn-primary">Start Session →</button>
+                            </form>
+                            <span class="email-note">Free session · No credit card · Instant access</span>
+                        </div>
+                    </div>
+
+                    <!-- Chat Area -->
+                    <div class="chat-body" id="chat-body" style="display:none;">
+                        <div class="chat-messages" id="chat-messages"></div>
+                        <div class="chat-input-area">
+                            <div class="suggested-prompts" id="suggested-prompts">
+                                <button class="prompt-chip" onclick="sendSuggested(this)">How do I reduce my CAC?</button>
+                                <button class="prompt-chip" onclick="sendSuggested(this)">Build me an email sequence</button>
+                                <button class="prompt-chip" onclick="sendSuggested(this)">Help me scale my ads</button>
+                            </div>
+                            <form class="chat-form" id="chat-form" onsubmit="handleChatSubmit(event)">
+                                <input type="text" id="chat-input" placeholder="Ask anything about your DTC business..." autocomplete="off">
+                                <button type="submit" class="send-btn" id="send-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Email Gate After 3 Messages -->
+                    <div class="email-gate-mid" id="email-gate-mid" style="display:none;">
+                        <div class="email-gate-inner">
+                            <h3>Enjoying the advice?</h3>
+                            <p>Enter your email to continue your session and unlock unlimited questions.</p>
+                            <form class="email-form" id="email-form-mid" onsubmit="handleEmailMidSubmit(event)">
+                                <input type="email" id="email-input-mid" placeholder="you@yourbrand.com" required>
+                                <button type="submit" class="btn-primary">Continue Session →</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust" id="trust">
+        <div class="container">
+            <div class="section-badge">Built Different</div>
+            <h2>Built on <span class="gradient-text">Real Data</span>, Not Generic AI</h2>
+            <p class="section-sub">Unlike ChatGPT, DTC Mentor AI is trained specifically on proven ecommerce frameworks, real benchmarks from 8-figure brands, and tactical playbooks that actually work.</p>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-icon">📊</div>
+                    <h4>Real Benchmarks</h4>
+                    <p>Industry-specific KPIs from thousands of DTC brands across beauty, wellness, fashion, food, and tech.</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">🎯</div>
+                    <h4>Proven Playbooks</h4>
+                    <p>Strategies extracted from brands doing $1M-$50M+ in annual revenue. Not theory — results.</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">⚡</div>
+                    <h4>Always Current</h4>
+                    <p>Updated with the latest platform changes, algorithm shifts, and market trends in real time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-badge">Capabilities</div>
+            <h2>Your unfair advantage in <span class="gradient-text">DTC growth</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Expert Knowledge</h3>
+                    <p>Deep understanding of DTC metrics, unit economics, and growth levers. Ask about CAC, LTV, ROAS, AOV, retention rates — get answers with real numbers.</p>
+                    <ul class="feature-list">
+                        <li>Industry benchmarks by vertical</li>
+                        <li>Unit economics modeling</li>
+                        <li>Competitive analysis frameworks</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚔️</div>
+                    <h3>Tactical Advice</h3>
+                    <p>Not vague suggestions — specific, implementable strategies with step-by-step breakdowns you can execute today.</p>
+                    <ul class="feature-list">
+                        <li>Ad creative frameworks</li>
+                        <li>Email sequence templates</li>
+                        <li>Landing page optimization</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Proven Frameworks</h3>
+                    <p>Battle-tested frameworks from 8-figure DTC operators. From launch to scale, every phase covered.</p>
+                    <ul class="feature-list">
+                        <li>Customer acquisition playbooks</li>
+                        <li>Retention & LTV maximization</li>
+                        <li>Scaling decision frameworks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Example Prompts -->
+    <section class="examples" id="examples">
+        <div class="container">
+            <div class="section-badge">Try It</div>
+            <h2>What you can <span class="gradient-text">ask</span></h2>
+            <p class="section-sub">Real questions from real DTC operators. Click any prompt to start a session.</p>
+            <div class="examples-grid">
+                <button class="example-card" onclick="useExample(this)">
+                    <span class="example-icon">💰</span>
+                    <span class="example-text">"How do I reduce my CAC on Facebook ads?"</span>
+                </button>
+                <button class="example-card" onclick="useExample(this)">
+                    <span class="example-icon">📧</span>
+                    <span class="example-text">"Build me a post-purchase email sequence"</span>
+                </button>
+                <button class="example-card" onclick="useExample(this)">
+                    <span class="example-icon">📊</span>
+                    <span class="example-text">"What's a good ROAS for my beauty brand?"</span>
+                </button>
+                <button class="example-card" onclick="useExample(this)">
+                    <span class="example-icon">🔄</span>
+                    <span class="example-text">"Analyze my retention strategy"</span>
+                </button>
+                <button class="example-card" onclick="useExample(this)">
+                    <span class="example-icon">🛒</span>
+                    <span class="example-text">"Help me plan my Black Friday campaign"</span>
+                </button>
+                <button class="example-card" onclick="useExample(this)">
+                    <span class="example-icon">🚀</span>
+                    <span class="example-text">"How do I scale from $10K to $50K/mo?"</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-card">
+                <h2>Ready to grow your DTC brand?</h2>
+                <p>Get instant, expert advice tailored to your business. No fluff, no generic answers — just proven strategies that work.</p>
+                <button class="btn-primary btn-large" onclick="scrollToChat()">Start Your Free Session →</button>
+                <span class="cta-note">Free forever · No credit card required</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <span class="logo-icon">◆</span>
+                        <span class="logo-text">DTC Mentor<span class="logo-ai">.ai</span></span>
+                    </a>
+                    <p>AI-powered mentorship for direct-to-consumer brands.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#examples">Examples</a>
+                        <a href="#trust">How It Works</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Resources</h4>
+                        <a href="#">DTC Benchmarks</a>
+                        <a href="#">Growth Playbooks</a>
+                        <a href="#">Case Studies</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 dtcmentor.ai — All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
