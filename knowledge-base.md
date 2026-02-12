@@ -1169,6 +1169,296 @@ Payback Period (months):                    ___
 
 ---
 
+# 9. SMS MARKETING
+
+## 9.1 SMS Benchmarks & Best Practices
+
+**Source:** Klaviyo 2025 SMS Benchmark Report; Postscript industry data; Attentive merchant data
+
+### Key SMS Metrics
+
+| Metric | Average | Good | Excellent |
+|---|---|---|---|
+| Click-through rate (flows) | 8–12% | 12–18% | 18%+ |
+| Click-through rate (campaigns) | 4–8% | 8–12% | 12%+ |
+| Conversion rate (from click) | 10–15% | 15–25% | 25%+ |
+| Revenue per recipient (flows) | $0.50–$1.50 | $1.50–$3.00 | $3.00+ |
+| Unsubscribe rate per send | 0.5–1.5% | <0.5% | <0.3% |
+| List growth rate (monthly) | 3–5% | 5–10% | 10%+ |
+
+### SMS Revenue Contribution
+- SMS should drive **10–20% of total owned revenue** (combined with email = 30–45%)
+- Top-performing brands see SMS revenue per message 3–5x higher than email
+- SMS list is typically 20–40% the size of email list
+
+### Essential SMS Flows
+
+**1. Welcome SMS (Immediate after opt-in)**
+- Deliver promised incentive (discount code)
+- Keep under 160 characters
+- Include brand name and clear CTA
+- Expected CVR: 10–15%
+
+**2. Abandoned Cart SMS (1–4 hours after abandonment)**
+- Short, direct: "You left something behind! Complete your order: [link]"
+- Recovery rate: 10–20% (higher than email alone)
+- Add image of abandoned product (MMS) for 15–25% lift
+
+**3. Shipping Notification SMS**
+- Highest open rate of any SMS (95%+)
+- Include tracking link
+- Opportunity to cross-sell: "While you wait, check out..."
+
+**4. Post-Purchase Review Request (5–7 days)**
+- "How are you loving your [product]? Leave a review: [link]"
+- SMS review requests get 4–6x more responses than email
+
+**5. Back-in-Stock SMS**
+- Urgency-driven, high intent
+- "Good news! [Product] is back. Grab yours before it sells out again: [link]"
+- CVR: 15–30% (extremely high-intent audience)
+
+### SMS Campaign Best Practices
+- **Frequency:** 4–8 SMS campaigns per month max. More = high unsubscribe rates.
+- **Timing:** Tuesday–Thursday, 10am–12pm or 6pm–8pm local time
+- **Compliance:** TCPA requires explicit opt-in. Always include opt-out instructions ("Reply STOP to unsubscribe")
+- **Segmentation:** Send to engaged SMS subscribers only (clicked in last 30–60 days)
+- **MMS vs SMS:** MMS (with images) has 15–20% higher CTR but costs 2–3x more per message
+
+### SMS List Building
+- **Checkout opt-in:** Add SMS opt-in checkbox at checkout (15–25% opt-in rate)
+- **Pop-up with SMS option:** "Get 15% off via text" — 5–10% opt-in rate
+- **Keyword opt-in:** "Text SAVE to 55555" on packaging, social media, ads
+- **Post-purchase:** "Want shipping updates via text?" — 30–40% opt-in rate
+
+---
+
+# 10. SUBSCRIPTION & MEMBERSHIP MODELS
+
+## 10.1 Subscription Model Types
+
+**Source:** Recharge 2025 State of Subscriptions report; Ordergroove merchant data
+
+### Three Subscription Models
+
+| Model | Description | Best For | Avg Retention |
+|---|---|---|---|
+| **Replenishment** | Auto-refill on schedule | Consumables (supplements, coffee, skincare) | 6–12 months |
+| **Curation** | Curated box of products | Discovery (beauty boxes, snack boxes) | 3–6 months |
+| **Access/Membership** | Perks, discounts, exclusive products | Premium brands, communities | 12–24 months |
+
+### Subscription Benchmarks
+
+| Metric | Average | Top Performers |
+|---|---|---|
+| Subscription uptake rate | 10–15% of customers | 20–30% |
+| Monthly churn rate | 7–12% | 3–5% |
+| Subscriber LTV vs one-time | 2.5–4x higher | 5–8x higher |
+| Average subscription discount | 10–15% | 5–10% (don't over-discount) |
+| Subscription revenue as % of total | 15–30% | 40–60% |
+
+## 10.2 Reducing Subscription Churn
+
+### Churn Prevention Tactics (Ordered by Impact)
+
+1. **Flexible management portal** — Let subscribers skip, swap, or delay without canceling. Brands with skip options see 20–30% lower churn (Recharge data).
+2. **Cancellation flow with save offers** — When a customer tries to cancel:
+   - Step 1: Ask why (survey)
+   - Step 2: Offer alternative (skip next order, swap product, change frequency)
+   - Step 3: Offer discount (10–20% for 2–3 months)
+   - Step 4: If they still cancel, offer pause (vs. full cancel)
+   - Saves 15–30% of would-be cancellations (Ordergroove)
+3. **Surprise & delight** — Random free samples, handwritten notes, or bonus products every 3–4 orders. Costs $2–5/order, reduces churn 10–15%.
+4. **Engagement content** — Monthly email/SMS with tips, recipes, or usage ideas related to their subscription product.
+5. **Loyalty tiers for subscribers** — After 3 months: free shipping. After 6: exclusive products. After 12: VIP discount tier.
+
+## 10.3 Membership Programs
+
+### Structure That Works
+
+- **Annual membership fee:** $50–$200/year (depending on brand tier)
+- **Benefits must exceed fee by 3–5x** in perceived value
+- Example: $99/year membership → free shipping all year ($60 value), 10% off everything ($X value), early access, member-only products
+- **Amazon Prime model:** The membership pays for itself in 2–3 orders, then drives additional purchasing
+
+### Membership Benchmarks
+- Member AOV is typically 30–50% higher than non-members
+- Member purchase frequency is 2–3x higher
+- Member retention rate: 70–85% annual renewal
+- Revenue per member: 3–5x revenue per non-member customer
+
+---
+
+# 11. SHOPIFY OPTIMIZATION
+
+## 11.1 Shopify Speed & Performance
+
+**Source:** Shopify engineering data; WebPageTest industry benchmarks
+
+### Speed Benchmarks
+- **Target:** Largest Contentful Paint (LCP) under 2.5 seconds
+- **Impact:** Every 1-second delay in load time reduces conversion by 7% (Portent research)
+- **Mobile speed is critical:** 70%+ of DTC traffic is mobile
+
+### Speed Optimization Checklist
+1. ✅ Compress all images (WebP format, under 200KB for hero images)
+2. ✅ Limit apps to essentials — each app adds JS that slows the site. Audit quarterly.
+3. ✅ Use system fonts or limit to 2 custom font weights
+4. ✅ Lazy load images below the fold
+5. ✅ Minimize Liquid template complexity (avoid nested loops)
+6. ✅ Use Shopify's native features over third-party apps where possible
+7. ✅ Remove unused apps completely (uninstalling may leave code behind — check theme files)
+8. ✅ Use a CDN for all assets (Shopify does this by default)
+9. ✅ Minimize redirects
+10. ✅ Defer non-critical JavaScript
+
+## 11.2 Shopify Theme & Storefront Optimization
+
+### Theme Selection
+- **Free themes (Dawn, Craft, Sense):** Good starting point, fast, well-coded
+- **Premium themes ($250–$400):** Prestige, Impulse, Symmetry — more features, better design
+- **Custom theme ($5K–$50K+):** Only for $5M+ brands where conversion lift justifies cost
+
+### High-Impact Shopify Settings
+1. **Enable Shop Pay** — 1.72x higher conversion than regular checkout (Shopify data)
+2. **Dynamic checkout buttons** — Show Apple Pay, Google Pay, Shop Pay on product pages
+3. **Automated abandoned checkout emails** — Enable in Shopify settings (free, basic)
+4. **Product reviews** — Install Judge.me (free) or Yotpo
+5. **Currency/language** — Enable Shopify Markets for international sales
+6. **Metafields** — Use for structured product data (ingredients, materials, specs)
+
+## 11.3 Shopify Apps Stack (Essential Only)
+
+**Warning:** Every app you install impacts site speed. Only install what you actively use.
+
+| Category | Recommended App | Cost | Why |
+|---|---|---|---|
+| Email/SMS | Klaviyo | Free–$700/mo | Industry standard, best flows |
+| Reviews | Judge.me | Free–$15/mo | Best free option, photo reviews |
+| Upsells | ReConvert | $5–$30/mo | Post-purchase upsells |
+| Subscriptions | Recharge or Skio | $99–$499/mo | Best subscription management |
+| Loyalty | Smile.io | Free–$200/mo | Points, referrals, VIP |
+| Pop-ups | Privy or Justuno | Free–$100/mo | Email/SMS capture |
+| Analytics | Triple Whale | $100–$400/mo | Attribution, pixel tracking |
+| Helpdesk | Gorgias | $10–$360/mo | Integrates with Shopify data |
+| SEO | SEO Manager or Plug in SEO | Free–$20/mo | Basic SEO automation |
+
+---
+
+# 12. SUPPLY CHAIN & SOURCING
+
+## 12.1 Sourcing Strategy
+
+### Domestic vs. Overseas Manufacturing
+
+| Factor | Domestic (US) | Overseas (China/Asia) |
+|---|---|---|
+| Unit cost | 2–5x higher | Lowest cost |
+| MOQ | Lower (100–500 units) | Higher (500–5,000 units) |
+| Lead time | 2–6 weeks | 6–16 weeks (+ shipping) |
+| Quality control | Easier, faster iteration | Requires inspections, samples |
+| Shipping cost | Lower, faster | Container shipping: $3K–$8K per 20ft container |
+| IP protection | Stronger | Higher risk |
+| Best for | Premium products, $5M+ brands, "Made in USA" angle | Price-sensitive products, high volume |
+
+### Sourcing Platforms
+
+| Platform | Best For | Notes |
+|---|---|---|
+| Alibaba | Finding overseas manufacturers | Start with Trade Assurance suppliers, get samples first |
+| ThomasNet | US manufacturers | Industrial and consumer products |
+| Maker's Row | US/domestic manufacturing | Focused on fashion, accessories, beauty |
+| Pietra | DTC-specific sourcing | All-in-one sourcing + fulfillment |
+| IndiaMART | Indian manufacturers | Good for textiles, supplements, cosmetics |
+
+### Sourcing Best Practices
+1. **Always get 3–5 samples** before committing to any supplier
+2. **Start with small MOQ** — negotiate samples + first order of 500–1,000 units
+3. **Get a quality inspection** — Use QIMA or AsiaInspection for overseas orders ($200–$400 per inspection)
+4. **Negotiate payment terms:** 30% deposit, 70% before shipping is standard. Push for 30/70 net-30 as you scale.
+5. **Have a backup supplier** — Never rely on a single source for critical products
+6. **Factor in total landed cost:** Product cost + shipping + duties + insurance + warehousing
+
+## 12.2 Packaging & Unboxing
+
+### Packaging Cost Benchmarks
+- **Basic poly mailer:** $0.10–$0.50/unit (good for apparel)
+- **Custom branded box:** $1.00–$5.00/unit (depending on size and complexity)
+- **Premium unboxing (tissue, sticker, insert card):** $0.50–$2.00 additional per order
+- **Total packaging cost target:** 3–5% of AOV
+
+### Unboxing ROI
+- Brands with premium unboxing see 40% more social shares (Dotcom Distribution study)
+- Include a CTA card: review request, referral code, social media handle
+- QR code to post-purchase landing page or loyalty program signup
+
+## 12.3 Inventory Financing
+
+### Options by Stage
+
+| Option | Stage | Typical Terms | Cost |
+|---|---|---|---|
+| **Shopify Capital** | $50K+/year revenue | Repay as % of daily sales | Factor rate 1.1–1.2x |
+| **Clearco / Wayflyer** | $10K+/mo revenue | Revenue-based, 6–12 month term | 6–12% flat fee |
+| **Kickfurther** | Any stage | Consignment-based | 5–15% per inventory cycle |
+| **SBA Loan** | Established (2+ years) | Traditional loan, low interest | 6–10% APR |
+| **Credit line** | Good personal credit | Revolving credit | 15–25% APR |
+
+**Rule:** Inventory financing makes sense when your gross margin exceeds the financing cost by 3x+ and you have predictable demand.
+
+---
+
+# 13. INFLUENCER & CREATOR STRATEGY (ADVANCED)
+
+## 13.1 Creator-Led Growth Model
+
+**Source:** CreatorIQ 2025 data; internal agency benchmarks
+
+### The DTC Creator Funnel
+1. **Seed (Free product, 0 cost):** Send product to 50–100 nano creators with no strings attached. 30–40% will post organically.
+2. **Paid UGC ($100–$300/video):** Commission 10–20 creators for specific content briefs. Use for paid ad creative.
+3. **Affiliate program (10–20% commission):** Set up ongoing partnerships with top performers. Track via unique codes/links.
+4. **Brand ambassadors ($500–$5K/mo retainer):** 3–5 creators who consistently represent your brand. Exclusive content, recurring posts.
+5. **Co-creation (revenue share):** Develop a product with a creator. They promote, you fulfill. Revenue split: 10–25% to creator.
+
+### Creator Outreach That Works
+- **Subject/DM format:** "[Brand] × [Creator Name] — Paid Collab Opportunity"
+- **Response rate:** 15–25% for personalized DMs, 5–10% for templated emails
+- **What creators care about:** Creative freedom > money (for most nano/micro creators)
+- **Always provide:** Product, clear brief, timeline, usage rights, payment terms
+
+## 13.2 Whitelisting & Spark Ads
+
+### Meta Whitelisting (Partnership Ads)
+- Creator grants you advertising access to run ads from their handle
+- Ads appear as "Sponsored | [Creator Name]" — massive trust signal
+- Performance: 20–40% lower CPA than brand-account ads (aggregate agency data)
+- Setup: Creator adds your Business Manager as a partner in Instagram settings
+
+### TikTok Spark Ads
+- Creator generates authorization code for their organic post
+- You import and run as paid ad from their account
+- All engagement stays on the original post (compounds organic reach)
+- Performance: 30–50% higher engagement than standard in-feed ads
+
+## 13.3 Measuring Influencer ROI
+
+### Attribution Methods
+1. **Unique discount codes:** Track revenue per creator. Simple but underreports (some buy without code).
+2. **UTM links:** Track traffic and conversions. More accurate for click-through attribution.
+3. **Post-purchase survey:** "How did you hear about us?" — captures word-of-mouth influence.
+4. **Blended approach:** Use all three. True influencer impact is usually 2–3x what code-only attribution shows.
+
+### ROI Calculation
+```
+Influencer ROI = (Revenue Attributed - Total Cost) / Total Cost × 100
+Total Cost = Product cost + Creator fee + Shipping + Platform fees
+```
+- Target ROI: 3–5x for paid partnerships
+- Target ROI: 10–20x for seeded/gifted product (lower cost, lower but still positive return)
+
+---
+
 # APPENDIX: QUICK REFERENCE TABLES
 
 ## Platform Comparison for DTC Advertising
