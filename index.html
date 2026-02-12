@@ -3,23 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-    <title>DTC Mentor AI — Your AI-Powered Ecommerce Growth Partner</title>
+    <title>DTC Mentor AI — Your AI-Powered DTC Growth Partner</title>
     <meta name="description" content="Get expert DTC ecommerce advice instantly. AI mentor trained on proven frameworks, real benchmarks, and tactical strategies for direct-to-consumer brands.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
 </head>
 <body>
-    <!-- Sidebar -->
+    <!-- Sidebar (desktop only) -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <a href="#" class="logo">
-                <span class="logo-icon">◆</span>
-                <span class="logo-text">DTC Mentor<span class="logo-ai">.ai</span></span>
-            </a>
-            <button class="sidebar-close" id="sidebar-close" onclick="toggleSidebar()">
+            <span class="sidebar-logo">DTC Mentor<span class="logo-accent">.ai</span></span>
+            <button class="icon-btn" onclick="toggleSidebar()" aria-label="Close sidebar">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
         </div>
@@ -27,118 +24,86 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
             New chat
         </button>
-        <div class="sidebar-section">
-            <div class="sidebar-label">Today</div>
-            <div class="sidebar-history" id="sidebar-history">
-                <div class="history-item active">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                    <span>New conversation</span>
-                </div>
-            </div>
-        </div>
+        <div class="sidebar-history" id="sidebar-history"></div>
         <div class="sidebar-footer">
             <button class="sidebar-footer-btn" onclick="toggleSettings()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
                 Settings
             </button>
-            <div class="sidebar-status">
-                <span id="api-status" class="api-status disconnected">Setup Required</span>
-            </div>
         </div>
     </aside>
 
-    <!-- Main Chat Area -->
+    <!-- Main -->
     <main class="main" id="main">
-        <!-- Top Bar (mobile) -->
+        <!-- Header -->
         <header class="topbar">
-            <button class="topbar-btn" onclick="toggleSidebar()" aria-label="Menu">
+            <button class="icon-btn sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
             </button>
             <span class="topbar-title">DTC Mentor AI</span>
-            <button class="topbar-btn" onclick="resetChat()" aria-label="New chat">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            <button class="icon-btn" onclick="toggleSettings()" aria-label="Settings">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
             </button>
         </header>
 
         <div class="chat-container" id="chat-container">
-            <!-- Email Gate -->
-            <div class="email-gate" id="email-gate">
-                <div class="email-gate-inner">
-                    <div class="welcome-logo">◆</div>
-                    <h1 class="welcome-title">DTC Mentor AI</h1>
-                    <p class="welcome-sub">Your AI-powered ecommerce growth partner. Ask anything about scaling your DTC brand.</p>
-                    <form class="email-form" id="email-form" onsubmit="handleEmailSubmit(event)">
-                        <input type="email" id="email-input" placeholder="Enter your email to start" required autocomplete="email">
-                        <button type="submit" class="btn-primary">Start chatting →</button>
-                    </form>
-                    <span class="email-note">Free · No credit card · Instant access</span>
-                </div>
-            </div>
-
-            <!-- Chat Area -->
-            <div class="chat-body" id="chat-body" style="display:none;">
-                <div class="chat-messages" id="chat-messages"></div>
-
-                <!-- Suggested Prompts (shown in empty state) -->
-                <div class="suggested-area" id="suggested-prompts">
-                    <div class="prompt-grid">
-                        <button class="prompt-card" onclick="sendSuggested(this)">
-                            <span class="prompt-card-icon">📉</span>
-                            <span class="prompt-card-text">How do I reduce my CAC?</span>
-                        </button>
-                        <button class="prompt-card" onclick="sendSuggested(this)">
-                            <span class="prompt-card-icon">📧</span>
-                            <span class="prompt-card-text">Build me an email sequence</span>
-                        </button>
-                        <button class="prompt-card" onclick="sendSuggested(this)">
-                            <span class="prompt-card-icon">🚀</span>
-                            <span class="prompt-card-text">Help me scale my ads</span>
-                        </button>
-                        <button class="prompt-card" onclick="sendSuggested(this)">
-                            <span class="prompt-card-icon">📊</span>
-                            <span class="prompt-card-text">What's a good ROAS for my brand?</span>
-                        </button>
-                        <button class="prompt-card" onclick="sendSuggested(this)">
-                            <span class="prompt-card-icon">🔄</span>
-                            <span class="prompt-card-text">Analyze my retention strategy</span>
-                        </button>
-                        <button class="prompt-card" onclick="sendSuggested(this)">
-                            <span class="prompt-card-icon">💰</span>
-                            <span class="prompt-card-text">Scale from $10K to $50K/mo</span>
-                        </button>
+            <!-- Chat Body (always visible) -->
+            <div class="chat-body" id="chat-body">
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Welcome state (shown when empty) -->
+                    <div class="welcome-state" id="welcome-state">
+                        <div class="welcome-logo">◆</div>
+                        <p class="welcome-text">Your AI-powered DTC growth partner</p>
+                        <div class="suggested-prompts" id="suggested-prompts">
+                            <button class="prompt-pill" onclick="sendSuggested(this)">How do I reduce CAC?</button>
+                            <button class="prompt-pill" onclick="sendSuggested(this)">Best email flows for retention</button>
+                            <button class="prompt-pill" onclick="sendSuggested(this)">TikTok Shop strategy</button>
+                            <button class="prompt-pill" onclick="sendSuggested(this)">Scale to $1M revenue</button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Input Area -->
-                <div class="chat-input-area">
-                    <form class="chat-form" id="chat-form" onsubmit="handleChatSubmit(event)">
+                <!-- Input Area (always at bottom) -->
+                <div class="chat-input-area" id="chat-input-area">
+                    <!-- Email gate (looks like chat input) -->
+                    <form class="input-form" id="email-form" onsubmit="handleEmailSubmit(event)">
+                        <div class="input-wrapper">
+                            <input type="email" id="email-input" placeholder="Enter your email to start" required autocomplete="email">
+                            <button type="submit" class="send-btn" aria-label="Start">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Chat input (hidden until email captured) -->
+                    <form class="input-form" id="chat-form" onsubmit="handleChatSubmit(event)" style="display:none;">
                         <div class="input-wrapper">
                             <input type="text" id="chat-input" placeholder="Ask anything about your DTC business..." autocomplete="off">
-                            <button type="submit" class="send-btn" id="send-btn">
+                            <button type="submit" class="send-btn" id="send-btn" aria-label="Send">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </button>
                         </div>
                     </form>
-                    <p class="input-disclaimer">DTC Mentor AI can make mistakes. Verify important information.</p>
                 </div>
             </div>
 
             <!-- Email Gate After 3 Messages -->
             <div class="email-gate-mid" id="email-gate-mid" style="display:none;">
-                <div class="email-gate-inner">
-                    <div class="welcome-logo small">◆</div>
-                    <h3>Enjoying the advice?</h3>
-                    <p class="welcome-sub">Enter your email to continue your session and unlock unlimited questions.</p>
-                    <form class="email-form" id="email-form-mid" onsubmit="handleEmailMidSubmit(event)">
-                        <input type="email" id="email-input-mid" placeholder="you@yourbrand.com" required>
-                        <button type="submit" class="btn-primary">Continue Session →</button>
+                <div class="email-mid-inner">
+                    <p class="email-mid-text">Enter your email to continue</p>
+                    <form class="input-form" id="email-form-mid" onsubmit="handleEmailMidSubmit(event)">
+                        <div class="input-wrapper">
+                            <input type="email" id="email-input-mid" placeholder="you@yourbrand.com" required>
+                            <button type="submit" class="send-btn" aria-label="Continue">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Sidebar Overlay (mobile) -->
+    <!-- Sidebar Overlay (desktop only when sidebar open) -->
     <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
     <!-- Settings Modal -->
@@ -147,7 +112,7 @@
         <div class="settings-panel">
             <div class="settings-header">
                 <h3>Settings</h3>
-                <button class="settings-close" onclick="toggleSettings()">
+                <button class="icon-btn" onclick="toggleSettings()" aria-label="Close">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
                 </button>
             </div>
@@ -155,25 +120,27 @@
                 <div class="settings-field">
                     <label for="api-key-input">OpenAI API Key</label>
                     <input type="password" id="api-key-input" placeholder="sk-..." autocomplete="off">
-                    <span class="settings-hint">Stored locally, never sent to our servers. <a href="https://platform.openai.com/api-keys" target="_blank">Get a key</a></span>
+                    <span class="settings-hint">Stored locally. <a href="https://platform.openai.com/api-keys" target="_blank">Get a key →</a></span>
                 </div>
                 <div class="settings-field">
                     <label for="model-select">Model</label>
                     <select id="model-select">
-                        <option value="gpt-4o-mini">GPT-4o Mini (Fast & Affordable)</option>
-                        <option value="gpt-4o">GPT-4o (Best Quality)</option>
+                        <option value="gpt-4o-mini">GPT-4o Mini (Fast)</option>
+                        <option value="gpt-4o">GPT-4o (Best)</option>
                         <option value="gpt-4.1-mini">GPT-4.1 Mini</option>
                         <option value="gpt-4.1">GPT-4.1</option>
                     </select>
                 </div>
-                <button class="btn-primary" onclick="saveSettings()" style="width:100%;margin-top:4px;">Save Settings</button>
+                <button class="btn-save" onclick="saveSettings()">Save</button>
             </div>
         </div>
     </div>
 
+    <!-- Hidden status for JS compat -->
+    <span id="api-status" style="display:none;"></span>
+
     <script src="script.js"></script>
     <script>
-    // Sidebar toggle
     function toggleSidebar() {
         document.getElementById('sidebar').classList.toggle('open');
         document.getElementById('sidebar-overlay').classList.toggle('visible');

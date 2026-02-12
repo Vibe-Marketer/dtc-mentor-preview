@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     
     updateSettingsUI();
+    updateWelcomeVisibility();
 });
 
 // ── Email Handling ──
@@ -139,7 +140,9 @@ function handleEmailSubmit(e) {
     emailCaptured = true;
     sessionStorage.setItem('dtc_email', userEmail);
     showChat();
-    addWelcomeMessage();
+    // Focus chat input immediately
+    const chatInput = document.getElementById('chat-input');
+    if (chatInput) chatInput.focus();
 }
 
 function handleEmailMidSubmit(e) {
@@ -155,8 +158,19 @@ function handleEmailMidSubmit(e) {
 }
 
 function showChat() {
-    document.getElementById('email-gate').style.display = 'none';
-    document.getElementById('chat-body').style.display = 'flex';
+    // Hide email form, show chat form
+    const emailForm = document.getElementById('email-form');
+    const chatForm = document.getElementById('chat-form');
+    if (emailForm) emailForm.style.display = 'none';
+    if (chatForm) chatForm.style.display = 'block';
+}
+
+function updateWelcomeVisibility() {
+    const welcome = document.getElementById('welcome-state');
+    const msgs = document.querySelectorAll('#chat-messages .message');
+    if (welcome) {
+        welcome.style.display = msgs.length > 0 ? 'none' : 'flex';
+    }
 }
 
 function addWelcomeMessage() {
@@ -190,17 +204,23 @@ function handleChatSubmit(e) {
 
 function sendSuggested(el) {
     if (isTyping) return;
+    if (!emailCaptured) {
+        // Focus email input if not yet signed in
+        const emailInput = document.getElementById('email-input');
+        if (emailInput) emailInput.focus();
+        return;
+    }
     const textEl = el.querySelector('.prompt-card-text');
     sendMessage(textEl ? textEl.textContent : el.textContent);
 }
 
 async function sendMessage(text) {
+    // Hide welcome state
+    const welcome = document.getElementById('welcome-state');
+    if (welcome) welcome.style.display = 'none';
+
     appendMessage('user', escapeHtml(text));
     messageCount++;
-
-    // Hide suggested prompts after first message
-    const prompts = document.getElementById('suggested-prompts');
-    if (prompts) { prompts.style.display = 'none'; }
 
     // Check if email gate needed (after 3 messages, if not captured)
     if (messageCount >= 3 && !emailCaptured) {
@@ -208,7 +228,7 @@ async function sendMessage(text) {
         setTimeout(() => {
             document.getElementById('chat-body').style.display = 'none';
             document.getElementById('email-gate-mid').style.display = 'flex';
-        }, 500);
+        }, 300);
         return;
     }
 
@@ -491,14 +511,19 @@ function loadChatHistory() {
     const saved = sessionStorage.getItem('dtc_chat');
     const savedConversation = sessionStorage.getItem('dtc_conversation');
     if (saved) {
-        document.getElementById('chat-messages').innerHTML = saved;
+        const chatMessages = document.getElementById('chat-messages');
+        const welcome = document.getElementById('welcome-state');
+        chatMessages.innerHTML = saved;
+        // Re-add welcome state (hidden since we have messages)
+        if (welcome) chatMessages.insertBefore(welcome, chatMessages.firstChild);
         const msgs = document.querySelectorAll('.message.user');
         messageCount = msgs.length;
         if (savedConversation) {
             try { conversationHistory = JSON.parse(savedConversation); } catch(e) {}
         }
+        updateWelcomeVisibility();
     } else {
-        addWelcomeMessage();
+        updateWelcomeVisibility();
     }
 }
 
@@ -557,27 +582,17 @@ function resetChat() {
     sessionStorage.removeItem('dtc_conversation');
     conversationHistory = [];
     messageCount = 0;
-    document.getElementById('chat-messages').innerHTML = '';
-    document.getElementById('suggested-prompts').style.display = 'flex';
-    addWelcomeMessage();
+    const chatMessages = document.getElementById('chat-messages');
+    // Preserve the welcome state element
+    const welcome = document.getElementById('welcome-state');
+    chatMessages.innerHTML = '';
+    if (welcome) {
+        chatMessages.appendChild(welcome);
+        welcome.style.display = 'flex';
+    }
 }
 
-// ── Smooth Reveal Animations ──
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.prompt-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(10px)';
-    el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-    observer.observe(el);
-});
+// ── Smooth Reveal (no-op, animations handled by CSS) ──
 
 // ── Keyboard shortcut: Enter to send, Shift+Enter for newline ──
 document.addEventListener('keydown', (e) => {
