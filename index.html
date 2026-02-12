@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <title>DTC Mentor AI — Your AI-Powered Ecommerce Growth Partner</title>
     <meta name="description" content="Get expert DTC ecommerce advice instantly. AI mentor trained on proven frameworks, real benchmarks, and tactical strategies for direct-to-consumer brands.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,282 +12,150 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-inner">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
             <a href="#" class="logo">
                 <span class="logo-icon">◆</span>
                 <span class="logo-text">DTC Mentor<span class="logo-ai">.ai</span></span>
             </a>
-            <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#examples">Examples</a>
-                <button class="btn-nav" onclick="scrollToChat()">Start Free Session</button>
+            <button class="sidebar-close" id="sidebar-close" onclick="toggleSidebar()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+        </div>
+        <button class="new-chat-btn" onclick="resetChat()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            New chat
+        </button>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Today</div>
+            <div class="sidebar-history" id="sidebar-history">
+                <div class="history-item active">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                    <span>New conversation</span>
+                </div>
             </div>
         </div>
-    </nav>
+        <div class="sidebar-footer">
+            <button class="sidebar-footer-btn" onclick="toggleSettings()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                Settings
+            </button>
+            <div class="sidebar-status">
+                <span id="api-status" class="api-status disconnected">Setup Required</span>
+            </div>
+        </div>
+    </aside>
 
-    <!-- Hero + Chat -->
-    <section class="hero" id="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-inner">
-            <div class="hero-left">
-                <div class="badge">
-                    <span class="badge-dot"></span>
-                    AI-Powered DTC Growth Partner
-                </div>
-                <h1>Scale your DTC brand with <span class="gradient-text">AI-powered mentorship</span></h1>
-                <p class="hero-sub">Get instant, tactical ecommerce advice backed by real data. From CAC optimization to retention strategies — your AI mentor knows what works.</p>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-num">2,847+</span>
-                        <span class="stat-label">Strategies Delivered</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-num">$14.2M</span>
-                        <span class="stat-label">Revenue Influenced</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-num">312</span>
-                        <span class="stat-label">Brands Helped</span>
-                    </div>
-                </div>
-                <div class="hero-cta-mobile">
-                    <button class="btn-primary" onclick="scrollToChat()">Start Your Free Session →</button>
+    <!-- Main Chat Area -->
+    <main class="main" id="main">
+        <!-- Top Bar (mobile) -->
+        <header class="topbar">
+            <button class="topbar-btn" onclick="toggleSidebar()" aria-label="Menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <span class="topbar-title">DTC Mentor AI</span>
+            <button class="topbar-btn" onclick="resetChat()" aria-label="New chat">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+        </header>
+
+        <div class="chat-container" id="chat-container">
+            <!-- Email Gate -->
+            <div class="email-gate" id="email-gate">
+                <div class="email-gate-inner">
+                    <div class="welcome-logo">◆</div>
+                    <h1 class="welcome-title">DTC Mentor AI</h1>
+                    <p class="welcome-sub">Your AI-powered ecommerce growth partner. Ask anything about scaling your DTC brand.</p>
+                    <form class="email-form" id="email-form" onsubmit="handleEmailSubmit(event)">
+                        <input type="email" id="email-input" placeholder="Enter your email to start" required autocomplete="email">
+                        <button type="submit" class="btn-primary">Start chatting →</button>
+                    </form>
+                    <span class="email-note">Free · No credit card · Instant access</span>
                 </div>
             </div>
-            <div class="hero-right">
-                <div class="chat-container" id="chat-container">
-                    <div class="chat-header">
-                        <div class="chat-header-left">
-                            <div class="chat-avatar">
-                                <span>◆</span>
-                            </div>
-                            <div>
-                                <div class="chat-header-title">DTC Mentor AI</div>
-                                <div class="chat-header-status">
-                                    <span class="status-dot"></span>
-                                    Online — Ready to help
-                                </div>
-                            </div>
-                        </div>
-                        <div class="chat-header-actions">
-                            <span id="api-status" class="api-status disconnected">Setup Required</span>
-                            <button class="chat-settings" onclick="toggleSettings()" title="Settings">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6.5 1L7.1 3.1a5 5 0 011.8 0L9.5 1h1.2l.6 2.1a5 5 0 011.3.9L14.7 3l.6 1-1.5 1.5c.2.6.3 1.2.3 1.8l2 .7v1.2l-2 .7a5 5 0 01-.3 1.3l1.5 1.5-.6 1-2.1-.6a5 5 0 01-.9.9L12.3 15H11l-.6-2.1a5 5 0 01-1.8 0L8 15H6.8l-.6-2.1a5 5 0 01-1.3-.9L2.8 12.6l-.6-1 1.5-1.5A5 5 0 013.4 9l-2-.7V7l2-.7c.1-.6.3-1.2.6-1.8L2.5 3l.6-1L5.2 2.6a5 5 0 01.9-.9L6.5 1zM8 5.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z" stroke="currentColor" stroke-width="1.2"/></svg>
+
+            <!-- Chat Area -->
+            <div class="chat-body" id="chat-body" style="display:none;">
+                <div class="chat-messages" id="chat-messages"></div>
+
+                <!-- Suggested Prompts (shown in empty state) -->
+                <div class="suggested-area" id="suggested-prompts">
+                    <div class="prompt-grid">
+                        <button class="prompt-card" onclick="sendSuggested(this)">
+                            <span class="prompt-card-icon">📉</span>
+                            <span class="prompt-card-text">How do I reduce my CAC?</span>
+                        </button>
+                        <button class="prompt-card" onclick="sendSuggested(this)">
+                            <span class="prompt-card-icon">📧</span>
+                            <span class="prompt-card-text">Build me an email sequence</span>
+                        </button>
+                        <button class="prompt-card" onclick="sendSuggested(this)">
+                            <span class="prompt-card-icon">🚀</span>
+                            <span class="prompt-card-text">Help me scale my ads</span>
+                        </button>
+                        <button class="prompt-card" onclick="sendSuggested(this)">
+                            <span class="prompt-card-icon">📊</span>
+                            <span class="prompt-card-text">What's a good ROAS for my brand?</span>
+                        </button>
+                        <button class="prompt-card" onclick="sendSuggested(this)">
+                            <span class="prompt-card-icon">🔄</span>
+                            <span class="prompt-card-text">Analyze my retention strategy</span>
+                        </button>
+                        <button class="prompt-card" onclick="sendSuggested(this)">
+                            <span class="prompt-card-icon">💰</span>
+                            <span class="prompt-card-text">Scale from $10K to $50K/mo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="chat-input-area">
+                    <form class="chat-form" id="chat-form" onsubmit="handleChatSubmit(event)">
+                        <div class="input-wrapper">
+                            <input type="text" id="chat-input" placeholder="Ask anything about your DTC business..." autocomplete="off">
+                            <button type="submit" class="send-btn" id="send-btn">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </button>
-                            <button class="chat-reset" onclick="resetChat()" title="New conversation">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.65 2.35A8 8 0 1 0 16 8h-2a6 6 0 1 1-1.76-4.24L10 6h6V0l-2.35 2.35z" fill="currentColor"/></svg>
-                            </button>
                         </div>
-                    </div>
+                    </form>
+                    <p class="input-disclaimer">DTC Mentor AI can make mistakes. Verify important information.</p>
+                </div>
+            </div>
 
-                    <!-- Email Gate -->
-                    <div class="email-gate" id="email-gate">
-                        <div class="email-gate-inner">
-                            <div class="email-gate-icon">🚀</div>
-                            <h3>Start Your Free Session</h3>
-                            <p>Get instant, expert DTC advice. Enter your email to begin.</p>
-                            <form class="email-form" id="email-form" onsubmit="handleEmailSubmit(event)">
-                                <input type="email" id="email-input" placeholder="you@yourbrand.com" required autocomplete="email">
-                                <button type="submit" class="btn-primary">Start Session →</button>
-                            </form>
-                            <span class="email-note">Free session · No credit card · Instant access</span>
-                        </div>
-                    </div>
-
-                    <!-- Chat Area -->
-                    <div class="chat-body" id="chat-body" style="display:none;">
-                        <div class="chat-messages" id="chat-messages"></div>
-                        <div class="chat-input-area">
-                            <div class="suggested-prompts" id="suggested-prompts">
-                                <button class="prompt-chip" onclick="sendSuggested(this)">How do I reduce my CAC?</button>
-                                <button class="prompt-chip" onclick="sendSuggested(this)">Build me an email sequence</button>
-                                <button class="prompt-chip" onclick="sendSuggested(this)">Help me scale my ads</button>
-                            </div>
-                            <form class="chat-form" id="chat-form" onsubmit="handleChatSubmit(event)">
-                                <input type="text" id="chat-input" placeholder="Ask anything about your DTC business..." autocomplete="off">
-                                <button type="submit" class="send-btn" id="send-btn">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Email Gate After 3 Messages -->
-                    <div class="email-gate-mid" id="email-gate-mid" style="display:none;">
-                        <div class="email-gate-inner">
-                            <h3>Enjoying the advice?</h3>
-                            <p>Enter your email to continue your session and unlock unlimited questions.</p>
-                            <form class="email-form" id="email-form-mid" onsubmit="handleEmailMidSubmit(event)">
-                                <input type="email" id="email-input-mid" placeholder="you@yourbrand.com" required>
-                                <button type="submit" class="btn-primary">Continue Session →</button>
-                            </form>
-                        </div>
-                    </div>
+            <!-- Email Gate After 3 Messages -->
+            <div class="email-gate-mid" id="email-gate-mid" style="display:none;">
+                <div class="email-gate-inner">
+                    <div class="welcome-logo small">◆</div>
+                    <h3>Enjoying the advice?</h3>
+                    <p class="welcome-sub">Enter your email to continue your session and unlock unlimited questions.</p>
+                    <form class="email-form" id="email-form-mid" onsubmit="handleEmailMidSubmit(event)">
+                        <input type="email" id="email-input-mid" placeholder="you@yourbrand.com" required>
+                        <button type="submit" class="btn-primary">Continue Session →</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Trust Section -->
-    <section class="trust" id="trust">
-        <div class="container">
-            <div class="section-badge">Built Different</div>
-            <h2>Built on <span class="gradient-text">Real Data</span>, Not Generic AI</h2>
-            <p class="section-sub">Unlike ChatGPT, DTC Mentor AI is trained specifically on proven ecommerce frameworks, real benchmarks from 8-figure brands, and tactical playbooks that actually work.</p>
-            <div class="trust-grid">
-                <div class="trust-item">
-                    <div class="trust-icon">📊</div>
-                    <h4>Real Benchmarks</h4>
-                    <p>Industry-specific KPIs from thousands of DTC brands across beauty, wellness, fashion, food, and tech.</p>
-                </div>
-                <div class="trust-item">
-                    <div class="trust-icon">🎯</div>
-                    <h4>Proven Playbooks</h4>
-                    <p>Strategies extracted from brands doing $1M-$50M+ in annual revenue. Not theory — results.</p>
-                </div>
-                <div class="trust-item">
-                    <div class="trust-icon">⚡</div>
-                    <h4>Always Current</h4>
-                    <p>Updated with the latest platform changes, algorithm shifts, and market trends in real time.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-badge">Capabilities</div>
-            <h2>Your unfair advantage in <span class="gradient-text">DTC growth</span></h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>Expert Knowledge</h3>
-                    <p>Deep understanding of DTC metrics, unit economics, and growth levers. Ask about CAC, LTV, ROAS, AOV, retention rates — get answers with real numbers.</p>
-                    <ul class="feature-list">
-                        <li>Industry benchmarks by vertical</li>
-                        <li>Unit economics modeling</li>
-                        <li>Competitive analysis frameworks</li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚔️</div>
-                    <h3>Tactical Advice</h3>
-                    <p>Not vague suggestions — specific, implementable strategies with step-by-step breakdowns you can execute today.</p>
-                    <ul class="feature-list">
-                        <li>Ad creative frameworks</li>
-                        <li>Email sequence templates</li>
-                        <li>Landing page optimization</li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📈</div>
-                    <h3>Proven Frameworks</h3>
-                    <p>Battle-tested frameworks from 8-figure DTC operators. From launch to scale, every phase covered.</p>
-                    <ul class="feature-list">
-                        <li>Customer acquisition playbooks</li>
-                        <li>Retention & LTV maximization</li>
-                        <li>Scaling decision frameworks</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Example Prompts -->
-    <section class="examples" id="examples">
-        <div class="container">
-            <div class="section-badge">Try It</div>
-            <h2>What you can <span class="gradient-text">ask</span></h2>
-            <p class="section-sub">Real questions from real DTC operators. Click any prompt to start a session.</p>
-            <div class="examples-grid">
-                <button class="example-card" onclick="useExample(this)">
-                    <span class="example-icon">💰</span>
-                    <span class="example-text">"How do I reduce my CAC on Facebook ads?"</span>
-                </button>
-                <button class="example-card" onclick="useExample(this)">
-                    <span class="example-icon">📧</span>
-                    <span class="example-text">"Build me a post-purchase email sequence"</span>
-                </button>
-                <button class="example-card" onclick="useExample(this)">
-                    <span class="example-icon">📊</span>
-                    <span class="example-text">"What's a good ROAS for my beauty brand?"</span>
-                </button>
-                <button class="example-card" onclick="useExample(this)">
-                    <span class="example-icon">🔄</span>
-                    <span class="example-text">"Analyze my retention strategy"</span>
-                </button>
-                <button class="example-card" onclick="useExample(this)">
-                    <span class="example-icon">🛒</span>
-                    <span class="example-text">"Help me plan my Black Friday campaign"</span>
-                </button>
-                <button class="example-card" onclick="useExample(this)">
-                    <span class="example-icon">🚀</span>
-                    <span class="example-text">"How do I scale from $10K to $50K/mo?"</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta-card">
-                <h2>Ready to grow your DTC brand?</h2>
-                <p>Get instant, expert advice tailored to your business. No fluff, no generic answers — just proven strategies that work.</p>
-                <button class="btn-primary btn-large" onclick="scrollToChat()">Start Your Free Session →</button>
-                <span class="cta-note">Free forever · No credit card required</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-inner">
-                <div class="footer-brand">
-                    <a href="#" class="logo">
-                        <span class="logo-icon">◆</span>
-                        <span class="logo-text">DTC Mentor<span class="logo-ai">.ai</span></span>
-                    </a>
-                    <p>AI-powered mentorship for direct-to-consumer brands.</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-col">
-                        <h4>Product</h4>
-                        <a href="#features">Features</a>
-                        <a href="#examples">Examples</a>
-                        <a href="#trust">How It Works</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Resources</h4>
-                        <a href="#">DTC Benchmarks</a>
-                        <a href="#">Growth Playbooks</a>
-                        <a href="#">Case Studies</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <span>© 2026 dtcmentor.ai — All rights reserved.</span>
-            </div>
-        </div>
-    </footer>
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
     <!-- Settings Modal -->
     <div class="settings-modal" id="settings-modal" style="display:none;">
         <div class="settings-overlay" onclick="toggleSettings()"></div>
         <div class="settings-panel">
             <div class="settings-header">
-                <h3>⚙️ Configuration</h3>
-                <button class="settings-close" onclick="toggleSettings()">✕</button>
+                <h3>Settings</h3>
+                <button class="settings-close" onclick="toggleSettings()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
             </div>
             <div class="settings-body">
                 <div class="settings-field">
                     <label for="api-key-input">OpenAI API Key</label>
                     <input type="password" id="api-key-input" placeholder="sk-..." autocomplete="off">
-                    <span class="settings-hint">Your key is stored locally and never sent to our servers. Get one at <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a></span>
+                    <span class="settings-hint">Stored locally, never sent to our servers. <a href="https://platform.openai.com/api-keys" target="_blank">Get a key</a></span>
                 </div>
                 <div class="settings-field">
                     <label for="model-select">Model</label>
@@ -298,11 +166,18 @@
                         <option value="gpt-4.1">GPT-4.1</option>
                     </select>
                 </div>
-                <button class="btn-primary" onclick="saveSettings()" style="width:100%;margin-top:8px;">Save Settings</button>
+                <button class="btn-primary" onclick="saveSettings()" style="width:100%;margin-top:4px;">Save Settings</button>
             </div>
         </div>
     </div>
 
     <script src="script.js"></script>
+    <script>
+    // Sidebar toggle
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+        document.getElementById('sidebar-overlay').classList.toggle('visible');
+    }
+    </script>
 </body>
 </html>

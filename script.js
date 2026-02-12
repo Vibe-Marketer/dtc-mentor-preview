@@ -190,7 +190,8 @@ function handleChatSubmit(e) {
 
 function sendSuggested(el) {
     if (isTyping) return;
-    sendMessage(el.textContent);
+    const textEl = el.querySelector('.prompt-card-text');
+    sendMessage(textEl ? textEl.textContent : el.textContent);
 }
 
 async function sendMessage(text) {
@@ -199,7 +200,7 @@ async function sendMessage(text) {
 
     // Hide suggested prompts after first message
     const prompts = document.getElementById('suggested-prompts');
-    if (prompts) prompts.style.display = 'none';
+    if (prompts) { prompts.style.display = 'none'; }
 
     // Check if email gate needed (after 3 messages, if not captured)
     if (messageCount >= 3 && !emailCaptured) {
@@ -535,23 +536,19 @@ function updateSettingsUI() {
 
 // ── Navigation ──
 function scrollToChat() {
-    const chat = document.getElementById('chat-container');
-    chat.scrollIntoView({ behavior: 'smooth', block: 'center' });
     if (emailCaptured) {
-        setTimeout(() => document.getElementById('chat-input').focus(), 500);
+        document.getElementById('chat-input').focus();
     } else {
-        setTimeout(() => document.getElementById('email-input').focus(), 500);
+        document.getElementById('email-input').focus();
     }
 }
 
 function useExample(el) {
-    scrollToChat();
-    const text = el.querySelector('.example-text').textContent.replace(/"/g, '');
+    const textEl = el.querySelector('.example-text') || el.querySelector('.prompt-card-text');
+    const text = textEl ? textEl.textContent.replace(/"/g, '') : el.textContent;
     if (emailCaptured) {
-        setTimeout(() => {
-            document.getElementById('chat-input').value = text;
-            document.getElementById('chat-input').focus();
-        }, 600);
+        document.getElementById('chat-input').value = text;
+        document.getElementById('chat-input').focus();
     }
 }
 
@@ -575,10 +572,10 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.trust-item, .feature-card, .example-card').forEach(el => {
+document.querySelectorAll('.prompt-card').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    el.style.transform = 'translateY(10px)';
+    el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
     observer.observe(el);
 });
 
