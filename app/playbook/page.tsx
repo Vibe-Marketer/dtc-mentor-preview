@@ -14,11 +14,11 @@ export default function PlaybookPage() {
     setLoading(true);
     
     // TODO: Connect to email service (ConvertKit, Beehiiv, etc.)
-    // For now, just simulate success
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Store email in localStorage for now
+    localStorage.setItem('playbook-email', email);
     
-    setSubmitted(true);
-    setLoading(false);
+    // Redirect to download page
+    window.location.href = '/playbook/download';
   };
 
   if (submitted) {
