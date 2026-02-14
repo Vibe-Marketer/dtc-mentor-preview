@@ -302,6 +302,12 @@ function buildProfileContext(profile: BusinessProfile | null): string {
     '100k-500k': '$100K-$500K/month',
     '500k-plus': '$500K+/month'
   };
+
+  const platformMap: Record<string, string> = {
+    'shopify': 'Shopify',
+    'tiktok-shop': 'TikTok Shop',
+    'amazon': 'Amazon'
+  };
   
   const categoryMap: Record<string, string> = {
     'beauty': 'Beauty & Skincare',
@@ -335,7 +341,7 @@ function buildProfileContext(profile: BusinessProfile | null): string {
 ## THIS USER'S BUSINESS PROFILE (USE THIS CONTEXT)
 
 - **Revenue:** ${revenueMap[profile.revenue] || profile.revenue}
-- **Platform:** ${profile.platform}
+- **Platform:** ${platformMap[profile.platform] || profile.platform}
 - **Category:** ${categoryMap[profile.category] || profile.category}
 - **Main Challenge:** ${challengeMap[profile.challenge] || profile.challenge}
 - **Team:** ${teamMap[profile.teamSize] || profile.teamSize}

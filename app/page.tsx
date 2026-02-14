@@ -33,11 +33,8 @@ const ONBOARDING_QUESTIONS = [
     question: "What platform are you selling on?",
     options: [
       { value: 'shopify', label: 'Shopify', emoji: '🛍️' },
+      { value: 'tiktok-shop', label: 'TikTok Shop', emoji: '📱' },
       { value: 'amazon', label: 'Amazon', emoji: '📦' },
-      { value: 'woocommerce', label: 'WooCommerce', emoji: '🔧' },
-      { value: 'bigcommerce', label: 'BigCommerce', emoji: '🏪' },
-      { value: 'multi-channel', label: 'Multiple channels', emoji: '🌐' },
-      { value: 'other', label: 'Other / Custom', emoji: '⚙️' },
     ]
   },
   {
