@@ -283,9 +283,77 @@ function getRelevantContext(query: string): string {
   }
 }
 
+interface BusinessProfile {
+  revenue: string;
+  platform: string;
+  category: string;
+  challenge: string;
+  teamSize: string;
+}
+
+function buildProfileContext(profile: BusinessProfile | null): string {
+  if (!profile) return '';
+  
+  const revenueMap: Record<string, string> = {
+    'pre-launch': 'Pre-launch (no revenue yet)',
+    'under-10k': 'Under $10K/month',
+    '10k-50k': '$10K-$50K/month',
+    '50k-100k': '$50K-$100K/month',
+    '100k-500k': '$100K-$500K/month',
+    '500k-plus': '$500K+/month'
+  };
+  
+  const categoryMap: Record<string, string> = {
+    'beauty': 'Beauty & Skincare',
+    'apparel': 'Apparel & Fashion',
+    'supplements': 'Supplements & Health',
+    'food-bev': 'Food & Beverage',
+    'home': 'Home & Lifestyle',
+    'tech': 'Tech & Gadgets',
+    'pets': 'Pet Products',
+    'other': 'Other'
+  };
+  
+  const challengeMap: Record<string, string> = {
+    'traffic': 'getting traffic',
+    'conversion': 'converting visitors',
+    'aov': 'increasing AOV',
+    'retention': 'repeat purchases / retention',
+    'margins': 'improving margins',
+    'scaling': 'scaling profitably'
+  };
+  
+  const teamMap: Record<string, string> = {
+    'solo': 'solo founder',
+    'small': 'small team (2-5)',
+    'growing': 'growing team (6-15)',
+    'established': 'established team (15+)'
+  };
+
+  return `
+
+## THIS USER'S BUSINESS PROFILE (USE THIS CONTEXT)
+
+- **Revenue:** ${revenueMap[profile.revenue] || profile.revenue}
+- **Platform:** ${profile.platform}
+- **Category:** ${categoryMap[profile.category] || profile.category}
+- **Main Challenge:** ${challengeMap[profile.challenge] || profile.challenge}
+- **Team:** ${teamMap[profile.teamSize] || profile.teamSize}
+
+**IMPORTANT:** Tailor ALL advice to this specific profile. Reference their category benchmarks, stage-appropriate tactics, and challenge-specific solutions. Don't give generic advice — give advice that only works for a ${revenueMap[profile.revenue]} ${categoryMap[profile.category]} brand dealing with ${challengeMap[profile.challenge]}.
+
+For example:
+- Pre-launch? Focus on validation, not scaling.
+- $500K+? They've done the basics — go deeper.
+- Supplements with retention issues? Subscription is the answer.
+- Beauty brand with conversion issues? UGC and social proof are critical.
+- Solo founder? Time-efficient tactics only.
+`;
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { messages } = await req.json();
+    const { messages, profile } = await req.json();
     
     // Get the latest user message for context retrieval
     const lastUserMessage = messages
@@ -295,8 +363,11 @@ export async function POST(req: NextRequest) {
     // Retrieve relevant context from knowledge base
     const context = getRelevantContext(lastUserMessage);
     
+    // Build profile context
+    const profileContext = buildProfileContext(profile);
+    
     // Build system prompt with context
-    const systemPrompt = BASE_SYSTEM_PROMPT + context;
+    const systemPrompt = BASE_SYSTEM_PROMPT + profileContext + context;
     
     // Convert messages to Anthropic format
     const anthropicMessages = messages.map((msg: any) => ({
