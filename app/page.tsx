@@ -362,9 +362,12 @@ export default function Home() {
               </li>
             </ul>
 
-            <button className="w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-100 transition-colors">
+            <a 
+              href="/pricing"
+              className="block w-full bg-white text-black font-bold py-3 rounded-xl hover:bg-gray-100 transition-colors text-center"
+            >
               Upgrade Now →
-            </button>
+            </a>
             
             <button 
               onClick={() => setQuestionsAsked(0)}
