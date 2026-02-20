@@ -91,22 +91,40 @@ interface PageAnalysis {
 async function analyzePage(url: string): Promise<PageAnalysis> {
   const startTime = Date.now();
   
-  // Fetch the page
-  const response = await fetch(url, {
+  // Use Jina AI Reader to fetch the page (more reliable in serverless environments)
+  const jinaUrl = `https://r.jina.ai/${url}`;
+  const response = await fetch(jinaUrl, {
     headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+      'Accept': 'text/html',
+      'X-Return-Format': 'html'
     }
   });
   
   if (!response.ok) {
-    throw new Error(`Failed to fetch page: ${response.status} ${response.statusText}`);
+    // Fallback to direct fetch if Jina fails
+    const directResponse = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+      }
+    });
+    
+    if (!directResponse.ok) {
+      throw new Error(`Failed to fetch page: ${directResponse.status} ${directResponse.statusText}`);
+    }
+    
+    const html = await directResponse.text();
+    const loadTime = Date.now() - startTime;
+    const $ = cheerio.load(html);
+    return analyzeHTML($, url, loadTime);
   }
   
   const html = await response.text();
   const loadTime = Date.now() - startTime;
   const $ = cheerio.load(html);
-  
-  // Extract page elements
+  return analyzeHTML($, url, loadTime);
+}
+
+function analyzeHTML($: cheerio.CheerioAPI, url: string, loadTime: number): PageAnalysis {
   const analysis: PageAnalysis = {
     url,
     title: $('title').first().text().trim() || undefined,
