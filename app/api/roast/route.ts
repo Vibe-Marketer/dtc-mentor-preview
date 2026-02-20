@@ -123,8 +123,9 @@ async function analyzePage(url: string): Promise<PageAnalysis> {
   $('*').each((_, el) => {
     const text = $(el).text();
     const priceMatch = text.match(/\$[\d,]+(?:\.\d{2})?/g);
-    if (priceMatch && analysis.pricing.length < 5) {
-      analysis.pricing.push(...priceMatch.filter(p => !analysis.pricing.includes(p)));
+    if (priceMatch && analysis.pricing!.length < 5) {
+      const currentPricing = analysis.pricing!;
+      analysis.pricing!.push(...priceMatch.filter(p => !currentPricing.includes(p)));
     }
   });
   
@@ -177,7 +178,7 @@ function buildAnalysisPrompt(analysis: PageAnalysis): string {
 
 **Hero Section Text:** ${analysis.heroText || 'Could not extract'}
 
-**Pricing Visible:** ${analysis.pricing.length > 0 ? analysis.pricing.join(', ') : 'No prices found on page'}
+**Pricing Visible:** ${analysis.pricing && analysis.pricing.length > 0 ? analysis.pricing.join(', ') : 'No prices found on page'}
 
 **Images:** ${analysis.imageCount} total images found
 
