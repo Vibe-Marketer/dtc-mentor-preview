@@ -228,7 +228,7 @@ export async function POST(req: NextRequest) {
     const prompt = buildAnalysisPrompt(analysis);
     
     const response = await anthropic.messages.create({
-      model: 'claude-3-sonnet-20240229',
+      model: 'claude-3-haiku-20240307',
       max_tokens: 2048,
       system: ROAST_PROMPT,
       messages: [
