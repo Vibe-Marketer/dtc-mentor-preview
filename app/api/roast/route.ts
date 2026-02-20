@@ -88,40 +88,10 @@ interface PageAnalysis {
   loadTime?: number;
 }
 
-async function analyzePage(url: string): Promise<PageAnalysis> {
-  const startTime = Date.now();
-  
-  // Use Jina AI Reader to fetch the page (more reliable in serverless environments)
-  const jinaUrl = `https://r.jina.ai/${url}`;
-  const response = await fetch(jinaUrl, {
-    headers: {
-      'Accept': 'text/html',
-      'X-Return-Format': 'html'
-    }
-  });
-  
-  if (!response.ok) {
-    // Fallback to direct fetch if Jina fails
-    const directResponse = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-      }
-    });
-    
-    if (!directResponse.ok) {
-      throw new Error(`Failed to fetch page: ${directResponse.status} ${directResponse.statusText}`);
-    }
-    
-    const html = await directResponse.text();
-    const loadTime = Date.now() - startTime;
-    const $ = cheerio.load(html);
-    return analyzeHTML($, url, loadTime);
-  }
-  
-  const html = await response.text();
-  const loadTime = Date.now() - startTime;
+async function analyzePage(url: string, html: string): Promise<PageAnalysis> {
+  // HTML is fetched client-side and passed in
   const $ = cheerio.load(html);
-  return analyzeHTML($, url, loadTime);
+  return analyzeHTML($, url, 0); // loadTime is measured client-side now
 }
 
 function analyzeHTML($: cheerio.CheerioAPI, url: string, loadTime: number): PageAnalysis {
@@ -219,11 +189,11 @@ Now tear this apart and tell them exactly how to fix it.`;
 
 export async function POST(req: NextRequest) {
   try {
-    const { url } = await req.json();
+    const { url, html } = await req.json();
     
-    if (!url) {
+    if (!url || !html) {
       return NextResponse.json(
-        { error: 'URL is required' },
+        { error: 'URL and HTML content are required' },
         { status: 400 }
       );
     }
@@ -242,14 +212,14 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    // Analyze the page
+    // Analyze the page HTML (fetched client-side)
     let analysis: PageAnalysis;
     try {
-      analysis = await analyzePage(validUrl.toString());
+      analysis = await analyzePage(validUrl.toString(), html);
     } catch (error: any) {
       console.error('Page analysis error:', error);
       return NextResponse.json(
-        { error: `Could not analyze page: ${error.message}. The site may be blocking automated requests or unreachable.` },
+        { error: `Could not analyze page: ${error.message}` },
         { status: 500 }
       );
     }

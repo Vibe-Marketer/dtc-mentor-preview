@@ -40,10 +40,30 @@ export default function RoastPage() {
     setResult(null);
     
     try {
+      // Step 1: Fetch HTML client-side using Jina AI Reader (bypasses CORS and Vercel restrictions)
+      const jinaUrl = `https://r.jina.ai/${url.trim()}`;
+      const htmlResponse = await fetch(jinaUrl, {
+        headers: {
+          'Accept': 'text/html',
+          'X-Return-Format': 'html'
+        }
+      });
+      
+      if (!htmlResponse.ok) {
+        setError('Could not fetch the page. Make sure the URL is accessible.');
+        return;
+      }
+      
+      const html = await htmlResponse.text();
+      
+      // Step 2: Send HTML to API for analysis
       const res = await fetch('/api/roast', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: url.trim() })
+        body: JSON.stringify({ 
+          url: url.trim(),
+          html: html
+        })
       });
       
       const data = await res.json();
