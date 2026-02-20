@@ -251,8 +251,13 @@ export async function POST(req: NextRequest) {
     
   } catch (error: any) {
     console.error('Roast API error:', error);
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
     return NextResponse.json(
-      { error: 'An unexpected error occurred. Please try again.' },
+      { error: `An unexpected error occurred: ${error.message}` },
       { status: 500 }
     );
   }
