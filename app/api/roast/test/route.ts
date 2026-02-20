@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
+export async function POST(req: NextRequest) {
   try {
     const response = await fetch('https://example.com', {
       headers: {
