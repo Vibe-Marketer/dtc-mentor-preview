@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -90,11 +91,18 @@ export default function Home() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [questionsAsked, setQuestionsAsked] = useState(0);
+  const [isPaidUser, setIsPaidUser] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Check for saved profile on mount
+  // Check for saved profile and paid status on mount
   useEffect(() => {
     const savedProfile = localStorage.getItem('dtc-mentor-profile');
+    const paidStatus = localStorage.getItem('dtc-mentor-paid');
+    
+    if (paidStatus === 'true') {
+      setIsPaidUser(true);
+    }
+    
     if (savedProfile) {
       const parsed = JSON.parse(savedProfile);
       setProfile(parsed);
@@ -240,28 +248,45 @@ export default function Home() {
     <main className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       {/* Header */}
       <div className="border-b border-gray-800 bg-black/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-              DTC Mentor
-            </h1>
-            <p className="text-sm text-gray-400">AI-powered ecommerce advisor</p>
+        <div className="max-w-4xl mx-auto px-4 py-4">
+          <div className="flex justify-between items-center mb-2">
+            <Link href="/">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent cursor-pointer">
+                DTC Mentor
+              </h1>
+            </Link>
+            <nav className="flex gap-6">
+              <Link href="/" className="text-white font-medium">
+                Chat
+              </Link>
+              <Link href="/calculator" className="text-gray-400 hover:text-white transition-colors">
+                Calculator
+              </Link>
+              <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors">
+                Pricing
+              </Link>
+            </nav>
           </div>
-          <div className="text-right flex items-center gap-4">
-            <button 
-              onClick={resetProfile}
-              className="text-xs text-gray-500 hover:text-gray-400"
-            >
-              Reset Profile
-            </button>
-            <div className="text-sm text-gray-500">
-              {questionsAsked < 5 ? (
-                <span>{5 - questionsAsked} free questions left</span>
-              ) : (
-                <a href="#upgrade" className="text-blue-400 hover:underline">
-                  Upgrade for unlimited →
-                </a>
-              )}
+          <div className="flex justify-between items-center">
+            <p className="text-sm text-gray-400">AI-powered ecommerce advisor</p>
+            <div className="text-right flex items-center gap-4">
+              <button 
+                onClick={resetProfile}
+                className="text-xs text-gray-500 hover:text-gray-400"
+              >
+                Reset Profile
+              </button>
+              <div className="text-sm text-gray-500">
+                {isPaidUser ? (
+                  <span className="text-green-400">✓ Pro Member</span>
+                ) : questionsAsked < 5 ? (
+                  <span>{5 - questionsAsked} free questions left</span>
+                ) : (
+                  <a href="/pricing" className="text-blue-400 hover:underline">
+                    Upgrade for unlimited →
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -335,8 +360,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Upgrade Modal - shows after 5 questions */}
-      {questionsAsked >= 5 && (
+      {/* Upgrade Modal - shows after 5 questions for free users */}
+      {!isPaidUser && questionsAsked >= 5 && (
         <div id="upgrade" className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
           <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 max-w-md w-full">
             <h2 className="text-2xl font-bold mb-2">You're loving DTC Mentor!</h2>
@@ -370,10 +395,10 @@ export default function Home() {
             </a>
             
             <button 
-              onClick={() => setQuestionsAsked(0)}
+              onClick={() => setQuestionsAsked(4)}
               className="w-full text-gray-500 text-sm mt-4 hover:text-gray-400"
             >
-              Maybe later
+              Ask one more free question
             </button>
           </div>
         </div>

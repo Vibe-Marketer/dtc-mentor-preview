@@ -1,28 +1,55 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function PricingPage() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
 
   const handleCheckout = async (plan: string) => {
+    if (!email || !email.includes('@')) {
+      alert('Please enter a valid email');
+      return;
+    }
+    
     setLoading(true);
     
     try {
-      // For now, redirect to Stripe payment link
-      // Los: Replace with your actual payment link
-      const paymentLinks: Record<string, string> = {
-        monthly: process.env.NEXT_PUBLIC_STRIPE_MONTHLY_LINK || '#',
-        annual: process.env.NEXT_PUBLIC_STRIPE_ANNUAL_LINK || '#',
-      };
-      
-      if (paymentLinks[plan] && paymentLinks[plan] !== '#') {
-        window.location.href = paymentLinks[plan];
-      } else {
-        // Fallback: collect email for waitlist
-        alert('Payment coming soon! We\'ll notify you at ' + email);
+      // First, subscribe to email list
+      await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: `pricing-${plan}` }),
+      });
+
+      // Then create checkout session
+      const res = await fetch('/api/checkout/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan, email }),
+      });
+
+      const data = await res.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else if (data.error) {
+        // Fallback to payment links if Stripe not configured
+        const paymentLinks: Record<string, string> = {
+          monthly: process.env.NEXT_PUBLIC_STRIPE_MONTHLY_LINK || '',
+          annual: process.env.NEXT_PUBLIC_STRIPE_ANNUAL_LINK || '',
+        };
+        
+        if (paymentLinks[plan]) {
+          window.location.href = `${paymentLinks[plan]}?prefilled_email=${encodeURIComponent(email)}`;
+        } else {
+          alert('Payment system being configured. Email saved - we\'ll notify you!');
+        }
       }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -30,6 +57,30 @@ export default function PricingPage() {
 
   return (
     <main className="min-h-screen bg-black text-white">
+      {/* Navigation */}
+      <div className="border-b border-gray-800 bg-black/50 backdrop-blur-sm sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
+            <Link href="/">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent cursor-pointer">
+                DTC Mentor
+              </h1>
+            </Link>
+            <nav className="flex gap-6">
+              <Link href="/" className="text-gray-400 hover:text-white transition-colors">
+                Chat
+              </Link>
+              <Link href="/calculator" className="text-gray-400 hover:text-white transition-colors">
+                Calculator
+              </Link>
+              <Link href="/pricing" className="text-white font-medium">
+                Pricing
+              </Link>
+            </nav>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-5xl mx-auto px-4 py-16">
         {/* Header */}
         <div className="text-center mb-16">
